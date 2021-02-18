@@ -41,9 +41,27 @@ public class BoardTeam {
             System.out.println("----------------------------------------------");
             System.out.println(" 번호 |   제목   |      내용      |  글쓴이  | 조회수");
             System.out.println("----------------------------------------------");
-            
+                        
+            int selectIndex = 0;// index null 확인용
+            int maxCount = count;
+            while((selectIndex<myBoard.length)&&(maxCount>0)){
+            	if(myBoard[selectIndex][0] != null && myBoard[selectIndex][0].equals(""+maxCount)) {
+            		System.out.println(myBoard[selectIndex][0] + " |   " + myBoard[selectIndex][1] 
+                            + "   |      " + myBoard[selectIndex][2]+ "       |  " + myBoard[selectIndex][3]
+                            + " | " + myBoard[selectIndex][4] );
+            		selectIndex=0;
+            		maxCount--;
+            		//continue;
+            	}
+            	else {
+            		selectIndex++;
+            		continue;
+            	}
+            	
+            }
+            /* 1차 시도
             // index sorting
-            if((myBoard == null && myBoard.length > 0) || count == 1) {
+            if(myBoard == null || count == 1) {
                    System.out.println("                 빈 내용                   ");
             }
             // 
@@ -61,6 +79,7 @@ public class BoardTeam {
                }
                */
                
+             /*
                for(int i=myBoard.length-1;i>=0;i--) {
                    if(myBoard[i][0]!=null) {
                       System.out.println(myBoard[i][0] + " | " + myBoard[i][1] 
@@ -71,8 +90,9 @@ public class BoardTeam {
                       continue;
                    }
                 }
+              */
                    
-            }
+           
          }
          /*
           * 2. 생성 기능 

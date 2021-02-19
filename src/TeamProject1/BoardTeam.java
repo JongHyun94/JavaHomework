@@ -13,9 +13,11 @@ public class BoardTeam {
       boolean run = true;
       // string 객체 선언
       String[][] myBoard;
-      //게시판 목록수 : 100개 게시판 항목수 : 5개
+      //게시판 목록수 : boardNum개 게시판 항목수 : 5개
       // {index, title, contents, writer, hit}
-      myBoard = new String[100][5];
+      int boardNum = 100; // 최대 게시물 개수
+      int boardAtr = 5; // 게시물 속성값 수
+      myBoard = new String[boardNum][boardAtr];
       Scanner scanner = new Scanner(System.in);
       //게시물 인덱스 순서 1부터 시작
       int count = 1;
@@ -51,7 +53,7 @@ public class BoardTeam {
             }
             else { //현재 게시물이 0개가 아닐 때
             	for(int i=maxCount;i>0;i--) {//최근 게시물 번호부터 시작해서 1까지
-            		for(int j=0;j<myBoard.length;j++) { //0부터 100개: 최대 길이까지 확인용
+            		for(int j=0;j<myBoard.length;j++) { //0부터 boardNum개: 최대 길이까지 확인용
             			if(myBoard[j][0]!=null && myBoard[j][0].equals(""+i)) {
             				System.out.println(myBoard[j][0] + " |   " + myBoard[j][1] 
                                     + "   |      " + myBoard[j][2]+ "       |  " + myBoard[j][3]
@@ -128,9 +130,9 @@ public class BoardTeam {
          else if(selectNo == 2) {
         	
        	   /**
-       	   * 100칸 다 찼을 경우
+       	   * boardNum칸 다 찼을 경우
        	   */
-        	if(list == myBoard.length) { //현재 게시물수가 100개 인경우
+        	if(list == myBoard.length) { //현재 게시물수가 boardNum개 인경우
         		System.out.println("게시글이 꽉 찼습니다.");
         		continue;
         	}
@@ -198,7 +200,7 @@ public class BoardTeam {
             }
             else { //현재 게시물이 0개가 아닐 때
             	for(int i=maxCount;i>0;i--) {//최근 게시물 번호부터 시작해서 1까지
-            		for(int j=0;j<myBoard.length;j++) { //0부터 100개: 최대 길이까지 확인용
+            		for(int j=0;j<myBoard.length;j++) { //0부터 boardNum개: 최대 길이까지 확인용
             			if(myBoard[j][0]!=null && myBoard[j][0].equals(""+i)) {
             				System.out.println(myBoard[j][0] + " |   " + myBoard[j][1] 
                                     + "   |      " + myBoard[j][2]+ "       |  " + myBoard[j][3]
@@ -232,7 +234,7 @@ public class BoardTeam {
             	selectIndex++;
             }
             //int selectIndex = Integer.parseInt(temp) - 1; 
-            if(selectIndex==100) {
+            if(selectIndex==boardNum) {
             	System.out.println("찾는 숫자가 없습니다.");
             	continue;
             }
@@ -275,7 +277,7 @@ public class BoardTeam {
             	}
             	selectIndex++;
             }
-            if(selectIndex==100) {
+            if(selectIndex==boardNum) {
             	System.out.println("찾는 숫자가 없습니다.");
             	continue;
             }
@@ -319,7 +321,7 @@ public class BoardTeam {
             }
             else { //현재 게시물이 0개가 아닐 때
             	for(int i=maxCount;i>0;i--) {//최근 게시물 번호부터 시작해서 1까지
-            		for(int j=0;j<myBoard.length;j++) { //0부터 100개: 최대 길이까지 확인용
+            		for(int j=0;j<myBoard.length;j++) { //0부터 boardNum개: 최대 길이까지 확인용
             			if(myBoard[j][0]!=null && myBoard[j][0].equals(""+i)) {
             				System.out.println(myBoard[j][0] + " |   " + myBoard[j][1] 
                                     + "   |      " + myBoard[j][2]+ "       |  " + myBoard[j][3]
@@ -355,7 +357,7 @@ public class BoardTeam {
             	}
             	selectIndex++;
             }
-            if(selectIndex==100) {
+            if(selectIndex==boardNum) {
             	System.out.println("찾는 숫자가 없습니다.");
             	continue;
             }
@@ -382,7 +384,7 @@ public class BoardTeam {
             }
             else { //현재 게시물이 0개가 아닐 때
             	for(int i=maxCount;i>0;i--) {//최근 게시물 번호부터 시작해서 1까지
-            		for(int j=0;j<myBoard.length;j++) { //0부터 100개: 최대 길이까지 확인용
+            		for(int j=0;j<myBoard.length;j++) { //0부터 boardNum개: 최대 길이까지 확인용
             			if(myBoard[j][0]!=null && myBoard[j][0].equals(""+i)) {
             				System.out.println(myBoard[j][0] + " |   " + myBoard[j][1] 
                                     + "   |      " + myBoard[j][2]+ "       |  " + myBoard[j][3]

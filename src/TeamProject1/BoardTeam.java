@@ -19,7 +19,8 @@ public class BoardTeam {
       Scanner scanner = new Scanner(System.in);
       //게시물 인덱스 순서 1부터 시작
       int count = 1;
-      int list = 0;
+      //현재 게시물 수 0개 부터 시작 
+      int list = 0; 
       
       /**
        *  true환경에선 계속 작동하면서 메뉴 화면 출력, false 환경에선 작동 종료
@@ -42,8 +43,28 @@ public class BoardTeam {
             System.out.println(" 번호 |   제목   |      내용      |  글쓴이  | 조회수");
             System.out.println("----------------------------------------------");
                         
-            int selectIndex = 0;// index null 확인용
-            int maxCount = count;
+            //int selectIndex = 0;// index null 확인용
+            int maxCount = count; //현재 게시물 인덱스 저장
+
+            if(list==0) { //현재 게시물 수 0 개
+            	System.out.println("내용이 비어있습니다. 2번 생성을 눌러 게시물을 추가하세요.");
+            }
+            else { //현재 게시물이 0개가 아닐 때
+            	for(int i=maxCount;i>0;i--) {//최근 게시물 번호부터 시작해서 1까지
+            		for(int j=0;j<myBoard.length;j++) { //0부터 100개: 최대 길이까지 확인용
+            			if(myBoard[j][0]!=null && myBoard[j][0].equals(""+i)) {
+            				System.out.println(myBoard[j][0] + " |   " + myBoard[j][1] 
+                                    + "   |      " + myBoard[j][2]+ "       |  " + myBoard[j][3]
+                                    + " | " + myBoard[j][4] );
+            			}
+            			else {
+            				continue;
+            			}
+            		}
+            	}
+            }
+            /* 
+             * 2차 시도
             while((selectIndex<myBoard.length)&&(maxCount>0)){
             	if(myBoard[selectIndex][0] != null && myBoard[selectIndex][0].equals(""+maxCount)) {
             		System.out.println(myBoard[selectIndex][0] + " |   " + myBoard[selectIndex][1] 
@@ -59,14 +80,21 @@ public class BoardTeam {
             	}
             	
             }
-            /* 1차 시도
-            // index sorting
+            */
+            
+            
+            
+            
+            /* 
+             * 1차 시도
+             */
+            /* index sorting
             if(myBoard == null || count == 1) {
                    System.out.println("                 빈 내용                   ");
             }
-            // 
+             
             else {
-            	/*
+           
                for(int index=count-1; index>0; index--) {
                   for(int i=0;i<myBoard.length;i++) {
                      if(myBoard[i][0].equals(""+index)) {
@@ -77,7 +105,7 @@ public class BoardTeam {
                      }
                   }
                }
-               */
+             */
                
              /*
                for(int i=myBoard.length-1;i>=0;i--) {
@@ -102,7 +130,7 @@ public class BoardTeam {
        	   /**
        	   * 100칸 다 찼을 경우
        	   */
-        	if(list == myBoard.length) {
+        	if(list == myBoard.length) { //현재 게시물수가 100개 인경우
         		System.out.println("게시글이 꽉 찼습니다.");
         		continue;
         	}
@@ -127,7 +155,8 @@ public class BoardTeam {
                   myBoard[i][2] = tempContent;
                   myBoard[i][3] = tempWriter;
                   myBoard[i][4] = "0";  // 처음 조회수 0  
-                  count++;
+                  count++; //게시물 인덱스 번호 증가
+                  list++; //현재 게시물 게수 증가
                   break;
                }
             }
@@ -159,25 +188,54 @@ public class BoardTeam {
             /**
              * 생성부분 추가할부분
              */
+            System.out.println("----------------------------------------------");
+            System.out.println(" 번호 |   제목   |      내용      |  글쓴이  | 조회수");
+            System.out.println("----------------------------------------------");
+            int maxCount = count; //현재 게시물 인덱스 저장
+
+            if(list==0) { //현재 게시물 수 0 개
+            	System.out.println("내용이 비어있습니다. 2번 생성을 눌러 게시물을 추가하세요.");
+            }
+            else { //현재 게시물이 0개가 아닐 때
+            	for(int i=maxCount;i>0;i--) {//최근 게시물 번호부터 시작해서 1까지
+            		for(int j=0;j<myBoard.length;j++) { //0부터 100개: 최대 길이까지 확인용
+            			if(myBoard[j][0]!=null && myBoard[j][0].equals(""+i)) {
+            				System.out.println(myBoard[j][0] + " |   " + myBoard[j][1] 
+                                    + "   |      " + myBoard[j][2]+ "       |  " + myBoard[j][3]
+                                    + " | " + myBoard[j][4] );
+            			}
+            			else {
+            				continue;
+            			}
+            		}
+            	}
+            }
 
          }
          /**
           * 3. 읽기 기능 
           */
          else if(selectNo == 3) {
+        	 if(list==0) {
+        		 System.out.println("내용이 비어있습니다. 2번 생성을 눌러 게시물을 추가하세요.");
+        		 continue;
+        	 }
             System.out.print("번호> ");
             //번호 index 
             String temp = scanner.nextLine();
             //int temp1 = Integer.parseInt(temp);
             int selectIndex = 0;
             while(selectIndex<myBoard.length){
-            	if(myBoard[selectIndex][0].equals(temp)) {
+            	if(myBoard[selectIndex][0]!=null && myBoard[selectIndex][0].equals(temp)) {
             		break;
             	}
             	selectIndex++;
             }
             //int selectIndex = Integer.parseInt(temp) - 1; 
-            
+            if(selectIndex==100) {
+            	System.out.println("찾는 숫자가 없습니다.");
+            	continue;
+            }
  
             
             if(myBoard[selectIndex][0] != null) {
@@ -199,6 +257,10 @@ public class BoardTeam {
           * 4. 수정 기능
           */
          else if(selectNo == 4) {
+        	 if(list==0) {
+        		 System.out.println("내용이 비어있습니다. 2번 생성을 눌러 게시물을 추가하세요.");
+        		 continue;
+        	 }
             System.out.print("번호> ");
             //번호 index 
             String temp = scanner.nextLine();
@@ -208,10 +270,14 @@ public class BoardTeam {
             
             int selectIndex = 0;
             while(selectIndex<myBoard.length){
-            	if(myBoard[selectIndex][0].equals(temp)) {
+            	if(myBoard[selectIndex][0]!=null && myBoard[selectIndex][0].equals(temp)) {
             		break;
             	}
             	selectIndex++;
+            }
+            if(selectIndex==100) {
+            	System.out.println("찾는 숫자가 없습니다.");
+            	continue;
             }
             
             if(myBoard[selectIndex][0].equals(temp)) {
@@ -243,31 +309,62 @@ public class BoardTeam {
             /**
              * 생성부분 추가할부분
              */
-            
+            System.out.println("----------------------------------------------");
+            System.out.println(" 번호 |   제목   |      내용      |  글쓴이  | 조회수");
+            System.out.println("----------------------------------------------");
+            int maxCount = count; //현재 게시물 인덱스 저장
+
+            if(list==0) { //현재 게시물 수 0 개
+            	System.out.println("내용이 비어있습니다. 2번 생성을 눌러 게시물을 추가하세요.");
+            }
+            else { //현재 게시물이 0개가 아닐 때
+            	for(int i=maxCount;i>0;i--) {//최근 게시물 번호부터 시작해서 1까지
+            		for(int j=0;j<myBoard.length;j++) { //0부터 100개: 최대 길이까지 확인용
+            			if(myBoard[j][0]!=null && myBoard[j][0].equals(""+i)) {
+            				System.out.println(myBoard[j][0] + " |   " + myBoard[j][1] 
+                                    + "   |      " + myBoard[j][2]+ "       |  " + myBoard[j][3]
+                                    + " | " + myBoard[j][4] );
+            			}
+            			else {
+            				continue;
+            			}
+            		}
+            	}
+            }
          }
          /**
           * 5. 삭제 기능
           */
          else if(selectNo == 5) {
+        	 
+        	 if(list==0) {
+        		 System.out.println("내용이 비어있습니다. 2번 생성을 눌러 게시물을 추가하세요.");
+        		 continue;
+        	 }
             System.out.print("번호> ");
             //번호 index 
             String temp = scanner.nextLine();
             //int selectIndex = Integer.parseInt(temp) - 1; // 인덱스값은 -1 차이
             //System.out.println(selectIndex);
             
-            int selectIndex = 0;
+            
+            int selectIndex = 0; 
             while(selectIndex<myBoard.length){
-            	if(myBoard[selectIndex][0].equals(temp)) {
+            	if(myBoard[selectIndex][0]!=null && myBoard[selectIndex][0].equals(temp)) {
             		break;
             	}
             	selectIndex++;
             }
-            
+            if(selectIndex==100) {
+            	System.out.println("찾는 숫자가 없습니다.");
+            	continue;
+            }
             if(myBoard[selectIndex][0] != null) {
                // 모든 항목 null로 다 채우기.
                for(int i=0;i<5;i++) { //5항목
                   myBoard[selectIndex][i] = null;
                }
+               list--; // 현재 게시물 개수 줄이기
             }
             else {
                System.out.println("찾는 번호의 게시물이 없습니다.");
@@ -275,6 +372,28 @@ public class BoardTeam {
             /**
              * 생성부분 추가할부분
              */
+            System.out.println("----------------------------------------------");
+            System.out.println(" 번호 |   제목   |      내용      |  글쓴이  | 조회수");
+            System.out.println("----------------------------------------------");
+            int maxCount = count; //현재 게시물 인덱스 저장
+
+            if(list==0) { //현재 게시물 수 0 개
+            	System.out.println("내용이 비어있습니다. 2번 생성을 눌러 게시물을 추가하세요.");
+            }
+            else { //현재 게시물이 0개가 아닐 때
+            	for(int i=maxCount;i>0;i--) {//최근 게시물 번호부터 시작해서 1까지
+            		for(int j=0;j<myBoard.length;j++) { //0부터 100개: 최대 길이까지 확인용
+            			if(myBoard[j][0]!=null && myBoard[j][0].equals(""+i)) {
+            				System.out.println(myBoard[j][0] + " |   " + myBoard[j][1] 
+                                    + "   |      " + myBoard[j][2]+ "       |  " + myBoard[j][3]
+                                    + " | " + myBoard[j][4] );
+            			}
+            			else {
+            				continue;
+            			}
+            		}
+            	}
+            }
          }
          /**
           * 6. 종료 기능 run = true 에서 -> false로 바꾸기 
